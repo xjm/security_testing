@@ -22,6 +22,11 @@ function validate_version() {
   fi
 }
 
+email="$(cat $DIR/.email)"
+job_token="$(cat $DIR/.token)"
+api_token="$(cat $DIR/.api_token)"
+
+
 echo "Enter the codename for the issue (e.g. 'sloth'):"
 read codename
 
@@ -81,6 +86,12 @@ for i in "${!versions[@]}"; do
   build="${build//__PHPV__/$php}"
   build="${build//__DOWNLOAD_ID__/$download}"
 
-  echo -e "$build" > output/"$codename""$major_v""$minor_v""$patch_v".build.yml
+  filename="output/${codename}${major_v}${minor_v}${patch_v}.build.yml"
+  echo -e "$build" > "$filename"
   echo -e "\nYour files have been created in the output/ directory.\n"
+
+  command="curl https://security-testing:${api_token}@dispatcher.drupalci.org/job/improved_security_testing/build -F file0=@${filename} -F json='{\"parameter\": [{\"name\":\"builds/build.yml\", \"file\":\"file0\"},{\"name\":\"DCI_PHPVersion\", \"value\":\"php-${php}-apache:production\"},{\"name\":\"EMAIL\", \"value\":\"${email}\"},{\"name\":\"SUBJECT\",\"value\":\"$codename on $v with $php\"},{\"name\":\"Drupal_JobID\", \"value\":\"1\"}]}' -F token=${job_token}"
+
+  echo -e "\nExecuting the curl command.\n"
+  eval $command
 done
