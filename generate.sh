@@ -91,6 +91,6 @@ for i in "${!versions[@]}"; do
 
   command="curl https://security-testing:${api_token}@dispatcher.drupalci.org/job/improved_security_testing/build -F file0=@${filename} -F json='{\"parameter\": [{\"name\":\"builds/build.yml\", \"file\":\"file0\"},{\"name\":\"DCI_PHPVersion\", \"value\":\"php-${php}-apache:production\"},{\"name\":\"EMAIL\", \"value\":\"${email}\"},{\"name\":\"SUBJECT\",\"value\":\"$codename on $v with $php\"},{\"name\":\"Drupal_JobID\", \"value\":\"1\"}]}' -F token=${job_token}"
 
-  echo "Executing the curl command for $version."
+  echo "Executing the curl command for $v."
   eval $command
 done
