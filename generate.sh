@@ -73,7 +73,7 @@ for i in "${!versions[@]}"; do
 
   if [[ $major_v = 8 ]] ; then
     if [[ $minor_v < 8 ]] ; then
-      php="5.5"
+      php="5.5.38"
     else
       php="7.1"
     fi
@@ -88,10 +88,9 @@ for i in "${!versions[@]}"; do
 
   filename="output/${codename}${major_v}${minor_v}${patch_v}.build.yml"
   echo -e "$build" > "$filename"
-  echo -e "\nYour files have been created in the output/ directory.\n"
 
   command="curl https://security-testing:${api_token}@dispatcher.drupalci.org/job/improved_security_testing/build -F file0=@${filename} -F json='{\"parameter\": [{\"name\":\"builds/build.yml\", \"file\":\"file0\"},{\"name\":\"DCI_PHPVersion\", \"value\":\"php-${php}-apache:production\"},{\"name\":\"EMAIL\", \"value\":\"${email}\"},{\"name\":\"SUBJECT\",\"value\":\"$codename on $v with $php\"},{\"name\":\"Drupal_JobID\", \"value\":\"1\"}]}' -F token=${job_token}"
 
-  echo -e "\nExecuting the curl command.\n"
+  echo "Executing the curl command for $version."
   eval $command
 done
