@@ -89,6 +89,9 @@ for i in "${!versions[@]}"; do
   build="${build//__PHPV__/$php}"
   build="${build//__DOWNLOAD_ID__/$download}"
 
+  # @todo Find a way to do this in the curl command that doesn't involve
+  #   writing a bunch of junk files. @Mixologic suggested this method but
+  #   others might work. curl works in mysterious ways.
   filename="output/${codename}${major_v}${minor_v}${patch_v}.build.yml"
   echo -e "$build" > "$filename"
 
