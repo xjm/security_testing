@@ -27,7 +27,7 @@ job_token="$(cat $DIR/.token)"
 api_token="$(cat $DIR/.api_token)"
 
 
-echo "Enter the codename for the issue (e.g. 'sloth'):"
+echo "Enter the codename for the issue (e.g. 'sloth') as one word, no spaces:"
 read codename
 
 echo "Enter a list of branches or tags with the one-time download ID for each after a
@@ -66,11 +66,13 @@ for i in "${!versions[@]}"; do
   v="${versions[$i]}"
   validate_version "$v" || ! $? -eq 0
 
+  # Clearly hardcoding D8 versioning expectations here.
   major_v="${BASH_REMATCH[1]}"
   minor_v="${BASH_REMATCH[2]}"
   patch_v="${BASH_REMATCH[4]}"
   download="${download_ids[$i]}"
 
+  # @todo Support D7 here too; right now D7 would get PHP 7.3 along with D9.
   if [[ $major_v = 8 ]] ; then
     if [[ $minor_v < 8 ]] ; then
       php="5.5.38"
@@ -81,6 +83,7 @@ for i in "${!versions[@]}"; do
     php="7.3"
   fi
 
+  # Heck, does the template even support D7?
   build="$(cat $DIR/build.yml.template)"
   build="${build//__BRANCH_OR_TAG__/$v}"
   build="${build//__PHPV__/$php}"
