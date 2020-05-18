@@ -55,6 +55,9 @@ build:
         halt-on-fail: false
         coder-version: ^8.2@stable
     testing:
+      # Skip the dastardly ComposerProjectTemplatesTest.
+      container_command:
+        command: "cd ${SOURCE_DIR} && sudo -u www-data rm core/tests/Drupal/BuildTests/Composer/Template/ComposerProjectTemplatesTest.php"
       run_tests.phpunit:
         types: PHPUnit-Unit
         testgroups: '--all'
