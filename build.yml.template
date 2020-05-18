@@ -57,7 +57,7 @@ build:
     testing:
       # Skip the dastardly ComposerProjectTemplatesTest.
       container_command:
-        command: "cd ${SOURCE_DIR} && sudo -u www-data rm core/tests/Drupal/BuildTests/Composer/Template/ComposerProjectTemplatesTest.php"
+        commands: "cd ${SOURCE_DIR} && sudo -u www-data rm core/tests/Drupal/BuildTests/Composer/Template/ComposerProjectTemplatesTest.php"
       run_tests.phpunit:
         types: PHPUnit-Unit
         testgroups: '--all'
