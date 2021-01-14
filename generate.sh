@@ -83,9 +83,13 @@ for i in "${!versions[@]}"; do
     php="7.3"
   fi
 
+  # Set the reference type
+  [[ $v =~ .x$ ]] && reftype="branch" || reftype="tag"
+
   # Heck, does the template even support D7?
   build="$(cat $DIR/build.yml.template)"
   build="${build//__BRANCH_OR_TAG__/$v}"
+  build="${build//__REFERNCE_TYPE__/$reftype}"
   build="${build//__PHPV__/$php}"
   build="${build//__DOWNLOAD_ID__/$download}"
 

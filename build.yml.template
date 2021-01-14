@@ -35,14 +35,19 @@ build:
           -
             from: __DOWNLOAD_ID__
             to: .
+      gather_dependencies:
+        add-facade: false
       update_build: {  }
-      update_dependencies: {  }
       yarn_install:
         halt-on-fail: false
-      start_phantomjs: {  }
     project-name: drupal
     project-type: core
     project-subdir: ''
+    commit-hash: null
+    composer-namespace: ''
+    reference-type: __REFERNCE_TYPE__
+    repository: 'https://git.drupalcode.org/project/drupal.git'
+    reference: __BRANCH_OR_TAG__
   assessment:
     validate_codebase:
       phplint: {  }
