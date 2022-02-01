@@ -62,7 +62,10 @@ for i in "${!array[@]}" ; do
   fi
 done
 
+count=0;
 for i in "${!versions[@]}"; do
+  count=count++;
+
   v="${versions[$i]}"
   validate_version "$v" || ! $? -eq 0
 
@@ -108,3 +111,5 @@ for i in "${!versions[@]}"; do
   echo "Executing the curl command for $v."
   eval $command
 done
+
+echo "\n\n{$count} total jobs sent."
