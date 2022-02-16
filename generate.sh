@@ -86,7 +86,7 @@ for i in "${!versions[@]}"; do
     php="7.3"
   fi
   if [[ $major_v = 10 ]] ; then
-    php="8.0"
+    php="8.1"
   fi
 
 
