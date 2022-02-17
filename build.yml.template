@@ -49,20 +49,14 @@ build:
     repository: 'https://git.drupalcode.org/project/drupal.git'
     reference: __BRANCH_OR_TAG__
   assessment:
-    validate_codebase:
-      phplint: {  }
-      csslint:
-        halt-on-fail: false
-      eslint:
-        halt-on-fail: false
-      phpcs:
-        sniff-all-files: false
-        halt-on-fail: false
-        coder-version: ^8.2@stable
     testing:
       # Skip the dastardly ComposerProjectTemplatesTest.
-      container_command:
+      container_command.project-template-test:
         commands: "cd ${SOURCE_DIR} && sudo -u www-data rm core/tests/Drupal/BuildTests/Composer/Template/ComposerProjectTemplatesTest.php"
+      container_command.commit-checks:
+        commands:
+          - "core/scripts/dev/commit-code-check.sh --drupalci"
+        halt-on-fail: true
       run_tests.phpunit:
         types: PHPUnit-Unit
         testgroups: '--all'
