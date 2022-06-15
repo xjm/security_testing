@@ -104,7 +104,7 @@ for i in "${!versions[@]}"; do
   #   writing a bunch of junk files. @Mixologic suggested this method but
   #   others might work. curl works in mysterious ways.
   filename="output/${codename}${major_v}${minor_v}${patch_v}.build.yml"
-  echo -e "$build" > "$filename"
+  echo "$build" > "$filename"
 
   command="curl https://security-testing:${api_token}@dispatcher.drupalci.org/job/improved_security_testing/build -F file0=@${filename} -F json='{\"parameter\": [{\"name\":\"builds/build.yml\", \"file\":\"file0\"},{\"name\":\"DCI_PHPVersion\", \"value\":\"php-${php}-apache:production\"},{\"name\":\"EMAIL\", \"value\":\"${email}\"},{\"name\":\"SUBJECT\",\"value\":\"$codename on $v with $php\"},{\"name\":\"Drupal_JobID\", \"value\":\"1\"}]}' -F token=${job_token}"
 
