@@ -50,9 +50,6 @@ build:
     reference: __BRANCH_OR_TAG__
   assessment:
     testing:
-      # Skip the dastardly ComposerProjectTemplatesTest.
-      container_command.project-template-test:
-        commands: "cd ${SOURCE_DIR} && sudo -u www-data rm core/tests/Drupal/BuildTests/Composer/Template/ComposerProjectTemplatesTest.php"
       container_command.commit-checks:
         commands:
           - "core/scripts/dev/commit-code-check.sh --drupalci"
