@@ -15,7 +15,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 function validate_version() {
 
   # Supports D8 and higher.
-  re="^[ ]*([8-9]|1[0-9])\.([0-9][0-9]*)(\.(x|([0-9][0-9]*)))?[ ]*$"
+  re="^[ ]*([8-9]|1[0-9])\.?([0-9][0-9]*)?(\.(x|([0-9][0-9]*)))?[ ]*$"
   if [[ ! $1 =~ $re ]] ; then
     echo -e "Invalid branch or tag name: $1"
     exit 1
